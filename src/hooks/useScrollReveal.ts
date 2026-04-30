@@ -1,14 +1,14 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 
 export function useScrollReveal(staggerMs = 100) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const reveal = useCallback(() => {
+  useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const container = containerRef.current;
     if (!container) return;
 
-    const elements = container.querySelectorAll(".scroll-reveal:not(.revealed)");
+    const elements = container.querySelectorAll(".scroll-reveal");
 
     if (prefersReduced) {
       elements.forEach((el) => el.classList.add("revealed"));
@@ -28,19 +28,13 @@ export function useScrollReveal(staggerMs = 100) {
           }
         });
       },
-      { threshold: 0.05, rootMargin: "50px" }
+      { threshold: 0, rootMargin: "200px 0px 200px 0px" }
     );
 
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
   }, [staggerMs]);
-
-  useEffect(() => {
-    // Small delay to ensure hydration is complete
-    const timer = setTimeout(reveal, 50);
-    return () => clearTimeout(timer);
-  }, [reveal]);
 
   return containerRef;
 }
