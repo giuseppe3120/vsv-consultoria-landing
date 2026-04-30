@@ -117,10 +117,6 @@
 .marquee-track-right {
   animation: marquee-right 30s linear infinite;
 }
-.marquee-container:hover .marquee-track-left,
-.marquee-container:hover .marquee-track-right {
-  animation-duration: 60s;
-}
 
 /* Scroll animations */
 .scroll-reveal {
