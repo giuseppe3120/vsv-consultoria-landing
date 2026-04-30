@@ -37,7 +37,7 @@ function Index() {
 
         {/* Marquee A — negative margin overlapping hero/services transition */}
         <div className="relative z-10 -mt-6">
-          <Marquee items={MARQUEE_A} direction="left" accentIndices={[5, 6]} />
+          <Marquee items={MARQUEE_A} direction="left" accentIndex={5} />
         </div>
 
         <Services />
@@ -46,7 +46,7 @@ function Index() {
 
         {/* Marquee B */}
         <div className="relative z-10 -mt-4">
-          <Marquee items={MARQUEE_B} direction="right" accentIndices={[0, 8]} />
+          <Marquee items={MARQUEE_B} direction="right" accentIndex={0} />
         </div>
 
         <Trainings />
