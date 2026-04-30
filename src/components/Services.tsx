@@ -1,5 +1,4 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import docsImg from "@/assets/docs-programas.jpg";
 
 const services = [
   {
@@ -65,18 +64,6 @@ export default function Services() {
             </div>
           ))}
 
-          {/* Editorial image */}
-          <div className="scroll-reveal overflow-hidden rounded-xl sm:col-span-2 lg:col-span-1 lg:row-span-2" data-stagger="8">
-            <img
-              id="IMG_DOCS_PROGRAMAS"
-              src={docsImg}
-              alt="Documentos técnicos de segurança do trabalho — PGR, PCMSO, LTCAT"
-              loading="lazy"
-              width={768}
-              height={1024}
-              className="h-48 w-full object-cover sm:h-56 lg:h-full"
-            />
-          </div>
         </div>
       </div>
     </section>
