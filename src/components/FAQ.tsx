@@ -41,27 +41,27 @@ export default function FAQ() {
   const ref = useScrollReveal();
 
   return (
-    <section id="faq" className="bg-card py-24" ref={ref}>
-      <div className="mx-auto max-w-3xl px-6">
+    <section id="faq" className="bg-card py-16 sm:py-24" ref={ref}>
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <div className="scroll-reveal mb-4 text-center font-heading text-xs font-semibold uppercase tracking-[0.2em] text-primary" data-stagger="0">
           Dúvidas frequentes
         </div>
-        <h2 className="scroll-reveal text-center font-heading text-3xl font-800 tracking-tight sm:text-4xl" data-stagger="1">
+        <h2 className="scroll-reveal text-center font-heading text-2xl font-800 tracking-tight sm:text-3xl lg:text-4xl" data-stagger="1">
           Perguntas e respostas
         </h2>
 
-        <div className="scroll-reveal mt-12" data-stagger="2">
-          <Accordion type="single" collapsible className="space-y-3">
+        <div className="scroll-reveal mt-8 sm:mt-12" data-stagger="2">
+          <Accordion type="single" collapsible className="space-y-2 sm:space-y-3">
             {faqs.map((faq, i) => (
               <AccordionItem
                 key={i}
                 value={`faq-${i}`}
-                className="rounded-xl border border-primary/8 bg-background px-6 transition-all data-[state=open]:shadow-md"
+                className="rounded-xl border border-primary/8 bg-background px-4 transition-all data-[state=open]:shadow-md sm:px-6"
               >
-                <AccordionTrigger className="py-5 font-heading text-sm font-semibold text-foreground hover:no-underline">
+                <AccordionTrigger className="py-4 font-heading text-xs font-semibold text-foreground hover:no-underline sm:py-5 sm:text-sm">
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground">
+                <AccordionContent className="pb-4 text-xs leading-relaxed text-muted-foreground sm:pb-5 sm:text-sm">
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>

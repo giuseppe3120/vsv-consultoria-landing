@@ -5,12 +5,15 @@ export function useScrollReveal(staggerMs = 100) {
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
-
     const container = containerRef.current;
     if (!container) return;
 
     const elements = container.querySelectorAll(".scroll-reveal");
+
+    if (prefersReduced) {
+      elements.forEach((el) => el.classList.add("revealed"));
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -25,7 +28,7 @@ export function useScrollReveal(staggerMs = 100) {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0, rootMargin: "200px 0px 200px 0px" }
     );
 
     elements.forEach((el) => observer.observe(el));

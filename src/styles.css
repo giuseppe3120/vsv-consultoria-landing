@@ -178,7 +178,9 @@
   pointer-events: none;
 }
 
-/* Clip-path V triangle */
-.clip-v {
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+/* Clip-path V triangle — desktop only */
+@media (min-width: 1024px) {
+  .lg\:clip-v {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+  }
 }
