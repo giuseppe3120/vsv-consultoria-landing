@@ -12,7 +12,7 @@ export default function Marquee({ items, direction = "left", accentIndex }: Marq
       {items.map((item, idx) => (
         <span key={`${keyPrefix}-${idx}`} className="flex items-center">
           <span
-            className={`font-heading text-2xl font-bold tracking-wider sm:text-3xl lg:text-4xl ${
+            className={`font-heading text-xl font-bold tracking-wider sm:text-3xl lg:text-4xl ${
               accentIndex === idx ? "text-accent/60" : ""
             }`}
             style={
@@ -26,7 +26,7 @@ export default function Marquee({ items, direction = "left", accentIndex }: Marq
           >
             {item}
           </span>
-          <span className="mx-4 text-2xl text-primary/15 sm:mx-6">•</span>
+          <span className="mx-3 text-xl text-primary/15 sm:mx-6 sm:text-2xl">•</span>
         </span>
       ))}
     </span>

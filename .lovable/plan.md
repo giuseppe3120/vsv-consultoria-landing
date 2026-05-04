@@ -1,34 +1,53 @@
 
-# Ajustes: Cards de Serviços + Responsividade Completa
+# Responsividade total + atualização de texto
 
-## 1. Refatorar grid de Serviços
+## 1. Menu (Header) totalmente responsivo
 
-O problema é que o grid usa `lg:grid-rows-3` com um card `row-span-2`, criando rows altas que deixam cards pequenos com muito espaço em branco. A solução:
+Hoje o menu desktop só aparece a partir de `lg` (1024px) e o botão "Falar no WhatsApp" só aparece a partir de `sm` (640px). O drawer mobile é um simples bloco abaixo do header. Vou revisar para:
 
-- Trocar para um layout bento com `grid-template-rows: auto` e posicionamento explícito, sem forçar rows uniformes
-- Cards menores ficam compactos (padding reduzido), card grande ("Programas Legais") ocupa 2 rows de forma proporcional
-- A imagem editorial fica visível em mobile também (menor, em layout horizontal)
+- Header com altura/paddings que se adaptam (mobile: compacto; desktop: confortável)
+- Logo com tamanho responsivo (h-9 mobile → h-12 desktop)
+- Menu mobile vira drawer lateral usando o componente `Sheet` (UX padrão), com lista vertical, foco acessível, fechamento ao clicar em link e bloqueio de scroll do body quando aberto
+- Botão "Falar no WhatsApp" sempre visível como ícone compacto no mobile e botão completo a partir de `md`
+- Navegação principal: aparece a partir de `lg` (mantém), com itens espaçados; em telas entre `md` e `lg` o drawer continua sendo a opção
+- Garantir que o header fixo não cubra âncoras (scroll-margin-top nas seções)
 
-## 2. Responsividade geral da LP
+## 2. Responsividade geral da LP (revisão por seção)
 
-Revisar todos os componentes para garantir:
+Passar por cada componente garantindo breakpoints sm/md/lg/xl consistentes, fontes fluidas (clamp), grids que colapsam corretamente e sem overflow horizontal:
 
-- **Header**: menu mobile já funciona, verificar espaçamentos
-- **Hero**: stack vertical em mobile, imagem acima do texto em telas pequenas, card flutuante sem negative margin em mobile
-- **Marquee**: reduzir font-size em mobile
-- **Services**: grid 1 coluna em mobile, 2 em tablet, 3 em desktop
-- **HowItWorks**: timeline vertical em mobile (já está), ajustar padding
-- **NR-01**: stack vertical, remover clip-path em mobile (overflow issue)
-- **Trainings**: stack vertical, chips menores
-- **About**: foto acima do texto em mobile
-- **Testimonials**: 1 coluna em mobile
-- **Contact**: stack vertical
-- **Footer**: centralizado em mobile (já está)
-- **WhatsApp float**: verificar que não sobrepõe conteúdo
+- **Hero**: tipografia fluida, CTA full-width no mobile, imagem com aspect ratio controlado
+- **Marquee**: font-size responsivo, sem overflow horizontal
+- **Services (bento)**: 1 col mobile → 2 cols tablet → 3 cols desktop, sem espaços vazios
+- **HowItWorks**: timeline empilhada no mobile com numeração clara
+- **NR-01**: sem clip-path no mobile, stack vertical
+- **Trainings**: chips com wrap, cards full-width no mobile
+- **About**: imagem acima do texto no mobile, lado a lado a partir de `lg`
+- **Testimonials**: 1 col mobile → 2 cols md → 3 cols lg
+- **FAQ**: padding e fonte ajustados, accordion full-width
+- **Contact**: form stack vertical no mobile, lado a lado a partir de `md`
+- **Footer**: já centralizado mobile, garantir gaps
+- **WhatsAppFloat**: tamanho menor no mobile e posição que não cobre CTAs
 
-### Arquivos alterados:
-- `src/components/Services.tsx` — refatorar grid para eliminar espaço vazio
-- `src/components/Hero.tsx` — ajustes mobile (order, margins)
-- `src/components/NR01Urgency.tsx` — remover clip-path em mobile
-- `src/components/Marquee.tsx` — font-size responsivo
-- Pequenos ajustes de spacing nos demais componentes conforme necessário
+Verificação visual nos viewports: 360, 414, 768, 1024, 1280 e 1440px.
+
+## 3. Atualizar texto da seção "Quem está por trás" (About)
+
+Substituir o parágrafo único atual pelo novo conteúdo enviado, dividido em 4 parágrafos para leitura confortável:
+
+1. "Olá, eu sou Vanderson Barros."
+2. Formação acadêmica + 20 anos de experiência
+3. Fundação da empresa em abril/2022
+4. Diferencial: experiência de campo + atendimento humanizado
+
+Ajustes:
+- O parágrafo 1 vira destaque (font-heading, maior)
+- Manter os mini-cards (Serra/Grande Vitória, Consultoria + Assessoria, Treinamentos NR)
+- Ajustar o `<h2>` se necessário para não conflitar com o novo tom em primeira pessoa (manter "20 anos de experiência. Atendimento direto." como título da seção)
+
+## Arquivos a alterar
+
+- `src/components/Header.tsx` — drawer Sheet, breakpoints, CTA responsivo
+- `src/components/About.tsx` — novo texto em 4 parágrafos
+- `src/components/Hero.tsx`, `Services.tsx`, `HowItWorks.tsx`, `NR01Urgency.tsx`, `Trainings.tsx`, `Testimonials.tsx`, `FAQ.tsx`, `Contact.tsx`, `Marquee.tsx`, `WhatsAppFloat.tsx` — ajustes finos de responsividade
+- `src/styles.css` — utilitários (scroll-margin, clamp em headings se necessário)
