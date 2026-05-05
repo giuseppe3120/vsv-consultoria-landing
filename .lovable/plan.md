@@ -1,53 +1,34 @@
+## Substituir a logo oficial em todo o site
 
-# Responsividade total + atualização de texto
+A logo enviada (PNG com fundo transparente, formato quadrado ~540x540, com brasão "VSV" + "Segurança do Trabalho") substituirá o arquivo atual `src/assets/vsv-logo.jpg`, que é usado apenas em dois lugares: `Header.tsx` e `Footer.tsx`.
 
-## 1. Menu (Header) totalmente responsivo
+### Passos
 
-Hoje o menu desktop só aparece a partir de `lg` (1024px) e o botão "Falar no WhatsApp" só aparece a partir de `sm` (640px). O drawer mobile é um simples bloco abaixo do header. Vou revisar para:
+1. **Importar o arquivo oficial**
+   - Copiar `user-uploads://logo-vsv-consultoria-alphachanel.png` para `src/assets/vsv-logo.png`.
+   - Remover/parar de usar `src/assets/vsv-logo.jpg` (manter import apontando para o `.png`).
 
-- Header com altura/paddings que se adaptam (mobile: compacto; desktop: confortável)
-- Logo com tamanho responsivo (h-9 mobile → h-12 desktop)
-- Menu mobile vira drawer lateral usando o componente `Sheet` (UX padrão), com lista vertical, foco acessível, fechamento ao clicar em link e bloqueio de scroll do body quando aberto
-- Botão "Falar no WhatsApp" sempre visível como ícone compacto no mobile e botão completo a partir de `md`
-- Navegação principal: aparece a partir de `lg` (mantém), com itens espaçados; em telas entre `md` e `lg` o drawer continua sendo a opção
-- Garantir que o header fixo não cubra âncoras (scroll-margin-top nas seções)
+2. **Header (`src/components/Header.tsx`)**
+   - Como a logo já contém o texto "Segurança do Trabalho", manter apenas a imagem (sem texto adicional ao lado).
+   - Ajustar dimensões responsivas para boa leitura preservando proporção quadrada:
+     - Mobile (`<sm`): `h-10`
+     - `sm`: `h-12`
+     - `lg+`: `h-14`
+   - Usar `w-auto` + `object-contain` para manter proporção.
+   - Aumentar levemente a altura do header para acomodar a logo quadrada sem cortar.
+   - Mesma logo (menor, `h-9`) dentro do drawer mobile (`SheetHeader`), removendo o texto "VSV Consultoria" duplicado já que a logo o contém.
 
-## 2. Responsividade geral da LP (revisão por seção)
+3. **Footer (`src/components/Footer.tsx`)**
+   - Substituir a logo + bloco de texto "VSV Consultoria / Segurança do Trabalho" por apenas a logo oficial (`h-14 sm:h-16`), centralizada no mobile e à esquerda no desktop.
+   - Manter os contatos e o copyright.
 
-Passar por cada componente garantindo breakpoints sm/md/lg/xl consistentes, fontes fluidas (clamp), grids que colapsam corretamente e sem overflow horizontal:
+4. **Verificação visual**
+   - Conferir nos viewports 360, 414, 768, 1112 (atual) e 1440px que a logo:
+     - Mantém proporção (sem distorção)
+     - É legível (texto "Segurança do Trabalho" visível em desktop, brasão claro em mobile)
+     - Não estoura a altura do header nem encosta nos itens de navegação
 
-- **Hero**: tipografia fluida, CTA full-width no mobile, imagem com aspect ratio controlado
-- **Marquee**: font-size responsivo, sem overflow horizontal
-- **Services (bento)**: 1 col mobile → 2 cols tablet → 3 cols desktop, sem espaços vazios
-- **HowItWorks**: timeline empilhada no mobile com numeração clara
-- **NR-01**: sem clip-path no mobile, stack vertical
-- **Trainings**: chips com wrap, cards full-width no mobile
-- **About**: imagem acima do texto no mobile, lado a lado a partir de `lg`
-- **Testimonials**: 1 col mobile → 2 cols md → 3 cols lg
-- **FAQ**: padding e fonte ajustados, accordion full-width
-- **Contact**: form stack vertical no mobile, lado a lado a partir de `md`
-- **Footer**: já centralizado mobile, garantir gaps
-- **WhatsAppFloat**: tamanho menor no mobile e posição que não cobre CTAs
-
-Verificação visual nos viewports: 360, 414, 768, 1024, 1280 e 1440px.
-
-## 3. Atualizar texto da seção "Quem está por trás" (About)
-
-Substituir o parágrafo único atual pelo novo conteúdo enviado, dividido em 4 parágrafos para leitura confortável:
-
-1. "Olá, eu sou Vanderson Barros."
-2. Formação acadêmica + 20 anos de experiência
-3. Fundação da empresa em abril/2022
-4. Diferencial: experiência de campo + atendimento humanizado
-
-Ajustes:
-- O parágrafo 1 vira destaque (font-heading, maior)
-- Manter os mini-cards (Serra/Grande Vitória, Consultoria + Assessoria, Treinamentos NR)
-- Ajustar o `<h2>` se necessário para não conflitar com o novo tom em primeira pessoa (manter "20 anos de experiência. Atendimento direto." como título da seção)
-
-## Arquivos a alterar
-
-- `src/components/Header.tsx` — drawer Sheet, breakpoints, CTA responsivo
-- `src/components/About.tsx` — novo texto em 4 parágrafos
-- `src/components/Hero.tsx`, `Services.tsx`, `HowItWorks.tsx`, `NR01Urgency.tsx`, `Trainings.tsx`, `Testimonials.tsx`, `FAQ.tsx`, `Contact.tsx`, `Marquee.tsx`, `WhatsAppFloat.tsx` — ajustes finos de responsividade
-- `src/styles.css` — utilitários (scroll-margin, clamp em headings se necessário)
+### Arquivos alterados
+- `src/assets/vsv-logo.png` (novo)
+- `src/components/Header.tsx`
+- `src/components/Footer.tsx`

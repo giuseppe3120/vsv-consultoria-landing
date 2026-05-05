@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from "@/assets/vsv-logo.jpg";
+import logo from "@/assets/vsv-logo.png";
 import {
   Sheet,
   SheetContent,
@@ -42,7 +42,7 @@ export default function Header() {
           <img
             src={logo}
             alt="VSV Consultoria - Segurança do Trabalho"
-            className="h-9 w-auto sm:h-10 lg:h-12"
+            className="h-12 w-auto object-contain sm:h-14 lg:h-16"
           />
         </a>
 
@@ -96,8 +96,7 @@ export default function Header() {
             <SheetContent side="right" className="w-[85vw] max-w-sm p-0">
               <SheetHeader className="border-b px-6 py-4 text-left">
                 <SheetTitle className="flex items-center gap-2 font-heading">
-                  <img src={logo} alt="VSV" className="h-8 w-auto" />
-                  <span className="text-base">VSV Consultoria</span>
+                  <img src={logo} alt="VSV Consultoria" className="h-12 w-auto object-contain" />
                 </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-1 p-4">
