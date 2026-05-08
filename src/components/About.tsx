@@ -1,5 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import sobreImg from "@/assets/vanderson-barros.png";
+import sobreImg from "@/assets/vanderson-barros.webp";
 
 const miniCards = [
   "Serra / Grande Vitória",

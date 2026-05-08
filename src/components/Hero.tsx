@@ -1,5 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import heroImg from "@/assets/hero-sst.jpg";
+import heroImg from "@/assets/hero-sst.webp";
 
 const WHATSAPP_URL = "https://wa.me/5527999530056?text=Olá! Gostaria de agendar um atendimento.";
 

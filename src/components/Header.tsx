@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from "@/assets/vsv-logo.png";
+import logo from "@/assets/vsv-logo.webp";
 import {
   Sheet,
   SheetContent,
