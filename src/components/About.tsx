@@ -1,5 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import sobreImg from "@/assets/sobre-placeholder.jpg";
+import sobreImg from "@/assets/vanderson-barros.png";
 
 const miniCards = [
   "Serra / Grande Vitória",
@@ -19,7 +19,7 @@ export default function About() {
               <img
                 id="IMG_SOBRE_PLACEHOLDER"
                 src={sobreImg}
-                alt="Vanderson Barros — Responsável técnico VSV Consultoria (foto placeholder, substituir)"
+                alt="Vanderson Barros — Responsável técnico VSV Consultoria"
                 loading="lazy"
                 width={768}
                 height={1024}
