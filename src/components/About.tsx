@@ -19,7 +19,7 @@ export default function About() {
               <img
                 id="IMG_SOBRE_PLACEHOLDER"
                 src={sobreImg}
-                alt="Vanderson Barros — Responsável técnico VSV Consultoria (foto placeholder, substituir)"
+                alt="Vanderson Barros — Responsável técnico VSV Consultoria"
                 loading="lazy"
                 width={768}
                 height={1024}
