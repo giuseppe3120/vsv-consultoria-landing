@@ -1,5 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import treinImg from "@/assets/treinamento.jpg";
+import treinImg from "@/assets/treinamento.webp";
 
 const WHATSAPP_URL = "https://wa.me/5527999530056?text=Olá! Gostaria de agendar um treinamento NR.";
 

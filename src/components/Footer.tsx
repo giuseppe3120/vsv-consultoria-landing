@@ -1,4 +1,4 @@
-import logo from "@/assets/vsv-logo.png";
+import logo from "@/assets/vsv-logo.webp";
 
 export default function Footer() {
   return (

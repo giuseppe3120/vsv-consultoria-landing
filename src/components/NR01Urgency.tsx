@@ -1,5 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import nr01Img from "@/assets/nr01-psicossocial.jpg";
+import nr01Img from "@/assets/nr01-psicossocial.webp";
 
 const WHATSAPP_URL = "https://wa.me/5527999530056?text=Olá! Preciso me adequar à NR-01 (riscos psicossociais).";
 
