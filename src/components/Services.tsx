@@ -21,6 +21,10 @@ const services = [
     title: "Assistência Técnica e Perícia",
     desc: "Suporte técnico especializado em processos e perícias de segurança do trabalho.",
   },
+  {
+    title: "Atendimento ao eSocial",
+    desc: "Atendimento e gestão das informações relacionadas ao eSocial, garantindo o correto envio dos eventos de Saúde e Segurança do Trabalho (SST), conforme as exigências legais vigentes.",
+  },
 ];
 
 export default function Services() {
