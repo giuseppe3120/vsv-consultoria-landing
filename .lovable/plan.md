@@ -1,35 +1,71 @@
-## Ajustes do documento + foto oficial na seção "Quem está por trás"
 
-### 1. FAQ (`src/components/FAQ.tsx`)
-Substituir o array `faqs` pelas perguntas/respostas do documento (ordem definitiva):
+## Objetivo
 
-1. **Qual a importância do PGR (NR-01) e do PCMSO (NR-07)?** — texto completo do documento (PGR como documento prevencionista da NR-01, MEI dispensado, PCMSO em conjunto, dispensa para MEI/ME/EPP grau 1 e 2 sem exposição, lembrete de que dispensa do PCMSO não desobriga ASO/exames).
-2. **Diferença entre LTCAT e LIP (Laudo de Insalubridade e Periculosidade)** — texto completo (LTCAT previdenciário/INSS; LIP fundamentado em NR-15 e NR-16, com bullets das situações).
-3. **As visitas técnicas são realizadas mensalmente para fins de assessoria?** — periodicidade definida em comum acordo, objetivo de acompanhamento e conformidade legal.
-4. **Como funcionam os treinamentos das NRs?** — agendados, em nossa estrutura ou no cliente, obrigatórios para cumprimento das NRs.
-5. **Vocês atendem somente na região da Grande Vitória?** — atendimento fora da região e do estado conforme demanda.
-6. **O que muda com a NR-01 em maio de 2026?** — riscos psicossociais integrados ao PGR.
-7. **Qual a diferença entre consultoria e assessoria?** — consultoria (demandas pontuais/programas legais) vs assessoria (gestão contínua).
-8. **Quais os próximos passos para contratar?** — 1º contato via WhatsApp, atendimento e direcionamento ao especialista.
+Transformar o build de SSR (que gera `dist/client` + `dist/server` para Cloudflare Workers) em um build SPA estático puro, com saída:
 
-Como alguns textos são longos com bullets, ajustar `AccordionContent` para suportar parágrafos múltiplos e listas (renderizar `a` como array de blocos: parágrafos + lista opcional).
+```
+dist/
+  index.html
+  assets/
+    [arquivos JS/CSS/imagens com hash]
+```
 
-### 2. Serviços (`src/components/Services.tsx`)
-Adicionar novo card **Atendimento ao eSocial**:
-> "Atendimento e gestão das informações relacionadas ao eSocial, garantindo o correto envio dos eventos de Saúde e Segurança do Trabalho (SST), conforme as exigências legais vigentes."
+A landing page é uma única rota (`/`) renderizando os componentes existentes — perfeita para SPA estática. Nenhum componente visual será tocado.
 
-Ele entra como 6º item, mantendo o card grande "Programas Legais" e ajustando o grid (5 cards menores em `lg:grid-cols-3` continuam encaixando bem).
+## O que será alterado (apenas arquivos técnicos)
 
-### 3. Foto oficial — seção "Quem está por trás" (`src/components/About.tsx`)
-- Copiar `user-uploads://Vanderson.png` para `src/assets/vanderson-barros.jpg` (manter como JPG via conversão na cópia ou salvar como `.png` — usaremos `.png` para preservar qualidade).
-- Atualizar o `import sobreImg` em `About.tsx` para apontar para o novo arquivo.
-- Manter dimensões/`object-cover object-top` atuais para não distorcer.
-- Atualizar o `alt` para refletir foto oficial.
-- Remover o asset antigo `src/assets/sobre-placeholder.jpg` (não mais referenciado).
+1. **`package.json`**
+   - Remover dependências de SSR/edge: `@tanstack/react-start`, `@tanstack/react-router`, `@tanstack/router-plugin`, `@cloudflare/vite-plugin`, `@lovable.dev/vite-tanstack-config`.
+   - Manter todas as libs de UI (Radix, framer-motion, tailwind, lucide, etc.).
+   - Scripts: `build` continua `vite build`.
 
-### Arquivos alterados
-- `src/components/FAQ.tsx`
-- `src/components/Services.tsx`
-- `src/components/About.tsx`
-- `src/assets/vanderson-barros.png` (novo)
-- `src/assets/sobre-placeholder.jpg` (removido)
+2. **`vite.config.ts`** — reescrever como Vite puro:
+   ```ts
+   import { defineConfig } from "vite";
+   import react from "@vitejs/plugin-react";
+   import tailwindcss from "@tailwindcss/vite";
+   import tsconfigPaths from "vite-tsconfig-paths";
+
+   export default defineConfig({
+     plugins: [react(), tailwindcss(), tsconfigPaths()],
+     base: "./",          // caminhos relativos → funciona em subpasta da HostGator
+     build: { outDir: "dist", assetsDir: "assets" },
+   });
+   ```
+   `base: "./"` garante que o `index.html` referencie `./assets/...` (funciona tanto na raiz quanto em subdiretório).
+
+3. **Criar `index.html`** na raiz (entry padrão do Vite SPA) com `<div id="root">`, fontes do Google e meta tags atualmente em `__root.tsx`.
+
+4. **Criar `src/main.tsx`** — entry SPA:
+   ```tsx
+   import { createRoot } from "react-dom/client";
+   import App from "./App";
+   import "./styles.css";
+   createRoot(document.getElementById("root")!).render(<App />);
+   ```
+
+5. **Criar `src/App.tsx`** — copiar o JSX do `Index` atual (`src/routes/index.tsx`), removendo `createFileRoute`. Componentes filhos (`Header`, `Hero`, `Services`, etc.) ficam idênticos, sem mudanças.
+
+6. **Remover** (não são mais usados):
+   - `src/router.tsx`
+   - `src/routes/__root.tsx`
+   - `src/routes/index.tsx`
+   - `src/routeTree.gen.ts`
+   - `wrangler.jsonc`
+
+7. **`tsconfig.json`** — remover `"vite.config.ts"` do include se necessário; nada mais.
+
+## Verificação visual
+
+Os componentes em `src/components/*` (Hero, Header, Footer, Services, About, FAQ, etc.), `src/styles.css`, e todos os assets (`src/assets/*.webp`) **não serão tocados**. A árvore de renderização final é idêntica — só muda o entry point e o bundler.
+
+## Resposta final ao usuário (após implementar)
+
+1. **Arquivos alterados/criados:** `package.json`, `vite.config.ts`, `tsconfig.json`, `index.html` (novo), `src/main.tsx` (novo), `src/App.tsx` (novo). **Removidos:** `src/router.tsx`, `src/routes/`, `src/routeTree.gen.ts`, `wrangler.jsonc`.
+2. **Comando:** `npm install && npm run build`
+3. **Pasta para enviar à HostGator:** todo o conteúdo de `dist/` para `public_html/` (ou subpasta) via FTP/Gerenciador de Arquivos.
+4. **Confirmação:** nenhuma alteração visual — todos os componentes, estilos, imagens, animações, textos e ordem das seções permanecem idênticos.
+
+## Observação técnica sobre rotas
+
+Como a landing tem rota única (`/`), não há necessidade de `.htaccess` para fallback SPA. Se no futuro forem adicionadas rotas internas, será preciso um `.htaccess` com rewrite para `index.html`.
