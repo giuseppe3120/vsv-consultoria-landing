@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
@@ -13,22 +12,10 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "VSV Consultoria | Segurança do Trabalho na Grande Vitória" },
-      { name: "description", content: "Consultoria, assessoria e treinamentos NR. Programas legais (PGR, PCMSO, LTCAT) e adequação NR-01. Atendimento direto." },
-      { property: "og:title", content: "VSV Consultoria | Segurança do Trabalho na Grande Vitória" },
-      { property: "og:description", content: "Consultoria, assessoria e treinamentos NR. Programas legais (PGR, PCMSO, LTCAT) e adequação NR-01. Atendimento direto." },
-    ],
-  }),
-  component: Index,
-});
-
 const MARQUEE_A = ["PGR", "PCMSO", "LTCAT", "AET", "LIP", "NRs", "CONSULTORIA", "ASSESSORIA", "TREINAMENTOS"];
 const MARQUEE_B = ["NR-01", "NR-05", "NR-06", "NR-10", "NR-12", "NR-18", "NR-33", "NR-35", "SST"];
 
-function Index() {
+export default function App() {
   return (
     <>
       <Header />
