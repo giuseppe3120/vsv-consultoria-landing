@@ -35,6 +35,11 @@ export const Route = createRootRoute({
       { property: "og:title", content: "VSV Consultoria | Segurança do Trabalho na Grande Vitória" },
       { property: "og:description", content: "Consultoria, assessoria e treinamentos NR. Programas legais (PGR, PCMSO, LTCAT) e adequação NR-01. Atendimento direto." },
       { property: "og:type", content: "website" },
+      { name: "twitter:title", content: "VSV Consultoria | Segurança do Trabalho na Grande Vitória" },
+      { name: "twitter:description", content: "Consultoria, assessoria e treinamentos NR. Programas legais (PGR, PCMSO, LTCAT) e adequação NR-01. Atendimento direto." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/VtzV9mA98jWSCVpXLYK1jAi1KJy2/social-images/social-1778587616068-Vanderson.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/VtzV9mA98jWSCVpXLYK1jAi1KJy2/social-images/social-1778587616068-Vanderson.webp" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
