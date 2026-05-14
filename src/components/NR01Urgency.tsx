@@ -29,7 +29,7 @@ export default function NR01Urgency() {
               Identificar, incluir no PGR e estruturar um plano de ação — com apoio multidisciplinar e acompanhamento.
             </p>
 
-            <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-3 sm:gap-4">
+            <div className="mt-8 grid gap-3 sm:mt-10 sm:gap-4 md:grid-cols-3">
               {cards.map((c, i) => (
                 <div key={c.title} className="scroll-reveal rounded-xl border border-primary-foreground/10 bg-primary-foreground/5 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 sm:p-5" data-stagger={i + 3}>
                   <h3 className="font-heading text-sm font-bold">{c.title}</h3>
