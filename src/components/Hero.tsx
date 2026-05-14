@@ -7,10 +7,10 @@ export default function Hero() {
   const ref = useScrollReveal();
 
   return (
-    <section className="relative min-h-[calc(100svh-4rem)] overflow-hidden pt-20 sm:pt-24" ref={ref}>
+    <section className="relative min-h-[calc(100svh-4rem)] overflow-hidden pt-16 sm:pt-24" ref={ref}>
       <div className="grid-lines absolute inset-0" />
 
-      <div className="relative mx-auto grid max-w-7xl gap-6 px-4 py-10 sm:gap-8 sm:px-6 sm:py-16 lg:grid-cols-12 lg:py-24">
+      <div className="relative mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-16 lg:grid-cols-12 lg:py-24">
         {/* Image — shows first on mobile */}
         <div className="relative order-1 lg:order-2 lg:col-span-7">
           <div className="scroll-reveal relative overflow-hidden rounded-xl sm:rounded-2xl" data-stagger="1">
