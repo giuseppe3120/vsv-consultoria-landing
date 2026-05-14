@@ -11,7 +11,7 @@ export default function About() {
   const ref = useScrollReveal();
 
   return (
-    <section id="sobre" className="bg-card py-16 sm:py-24" ref={ref}>
+    <section id="sobre" className="bg-card py-12 sm:py-24" ref={ref}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-12">
           <div className="scroll-reveal lg:col-span-4" data-stagger="0">

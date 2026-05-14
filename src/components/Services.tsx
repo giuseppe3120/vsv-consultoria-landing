@@ -31,7 +31,7 @@ export default function Services() {
   const ref = useScrollReveal();
 
   return (
-    <section id="servicos" className="relative py-16 sm:py-24" ref={ref}>
+    <section id="servicos" className="relative py-12 sm:py-24" ref={ref}>
       <div className="diagonal-stripe absolute inset-0" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">

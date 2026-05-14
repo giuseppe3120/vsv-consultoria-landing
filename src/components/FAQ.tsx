@@ -77,7 +77,7 @@ export default function FAQ() {
   const ref = useScrollReveal();
 
   return (
-    <section id="faq" className="bg-card py-16 sm:py-24" ref={ref}>
+    <section id="faq" className="bg-card py-12 sm:py-24" ref={ref}>
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <div className="scroll-reveal mb-4 text-center font-heading text-xs font-semibold uppercase tracking-[0.2em] text-primary" data-stagger="0">
           Dúvidas frequentes
