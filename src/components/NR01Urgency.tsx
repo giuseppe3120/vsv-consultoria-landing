@@ -13,7 +13,7 @@ export default function NR01Urgency() {
   const ref = useScrollReveal();
 
   return (
-    <section id="nr01" className="relative overflow-hidden bg-primary py-16 text-primary-foreground sm:py-28 lg:clip-v" ref={ref}>
+    <section id="nr01" className="relative overflow-hidden bg-primary py-14 text-primary-foreground sm:py-28 lg:clip-v" ref={ref}>
       <div className="grid-lines absolute inset-0 opacity-30" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">

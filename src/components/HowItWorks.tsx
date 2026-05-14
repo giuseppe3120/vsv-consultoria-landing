@@ -13,7 +13,7 @@ export default function HowItWorks() {
   const ref = useScrollReveal();
 
   return (
-    <section id="como-funciona" className="relative bg-card py-16 sm:py-24" ref={ref}>
+    <section id="como-funciona" className="relative bg-card py-12 sm:py-24" ref={ref}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="scroll-reveal mb-4 font-heading text-xs font-semibold uppercase tracking-[0.2em] text-primary" data-stagger="0">
           Processo

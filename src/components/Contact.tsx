@@ -17,7 +17,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contato" className="py-16 sm:py-24" ref={ref}>
+    <section id="contato" className="py-12 sm:py-24" ref={ref}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid gap-8 sm:gap-12 lg:grid-cols-2">
           <div>
