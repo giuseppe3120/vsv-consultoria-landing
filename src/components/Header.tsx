@@ -85,7 +85,7 @@ export default function Header() {
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <button
-                className="flex h-10 w-10 items-center justify-center rounded-md border border-foreground/10 bg-background/60 text-foreground xl:hidden"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-foreground/10 bg-background/60 text-foreground xl:hidden"
                 aria-label="Abrir menu"
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
