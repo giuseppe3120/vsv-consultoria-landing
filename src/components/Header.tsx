@@ -37,8 +37,8 @@ export default function Header() {
         scrolled ? "bg-background/90 backdrop-blur-md shadow-sm" : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
-        <a href="#" className="flex items-center gap-2 shrink-0">
+      <div className="mx-auto flex w-full min-w-0 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
+        <a href="#" className="flex min-w-0 items-center gap-2 shrink-0">
           <img
             src={logo}
             alt="VSV Consultoria - Segurança do Trabalho"
