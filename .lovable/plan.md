@@ -1,71 +1,31 @@
+## Problema
 
-## Objetivo
+No mobile (≤ ~414px), o header está estourando a largura da viewport. Como o header usa `position: fixed left-0 right-0`, ele não respeita o `overflow-x: hidden` aplicado apenas no `body` — em alguns navegadores móveis isso permite que o conteúdo do header (botão WhatsApp + hambúrguer) seja empurrado para fora da tela à direita, escondendo o menu hambúrguer. Ao rolar horizontalmente, todo o conteúdo da página parece "deslocado para a esquerda" (foi o que apareceu no print enviado).
 
-Transformar o build de SSR (que gera `dist/client` + `dist/server` para Cloudflare Workers) em um build SPA estático puro, com saída:
+## Correções (apenas técnicas, sem mudança visual)
 
-```
-dist/
-  index.html
-  assets/
-    [arquivos JS/CSS/imagens com hash]
-```
+### 1. `src/styles.css`
+- Adicionar `overflow-x: hidden` também em `html` (hoje só está em `body`).
+- Adicionar `max-width: 100%` em `html, body` como reforço para evitar que elementos `position: fixed` ou conteúdos largos criem scroll horizontal em mobile browsers (Safari iOS / Chrome Android).
 
-A landing page é uma única rota (`/`) renderizando os componentes existentes — perfeita para SPA estática. Nenhum componente visual será tocado.
+### 2. `src/components/Header.tsx`
+- Trocar o container flex interno para garantir que ele nunca exceda a viewport: adicionar `w-full min-w-0` no `<div>` interno e `min-w-0` nos grupos filhos (logo wrapper e grupo de botões).
+- Adicionar `flex-shrink-0` no botão hambúrguer e no ícone WhatsApp mobile (eles já têm tamanho fixo, mas isso garante que não sejam deslocados por nenhum cálculo de flex).
+- Garantir que o `<a>` do logo use `min-w-0` para não forçar largura mínima da imagem.
 
-## O que será alterado (apenas arquivos técnicos)
+### 3. Verificação
+Após o ajuste, testar em viewport 320, 360, 375 e 414 com browser tools:
+- Logo visível à esquerda;
+- Botão WhatsApp + hambúrguer ambos visíveis e clicáveis à direita;
+- Sem barra de rolagem horizontal;
+- Hero, marquees e demais seções idênticas ao layout atual.
 
-1. **`package.json`**
-   - Remover dependências de SSR/edge: `@tanstack/react-start`, `@tanstack/react-router`, `@tanstack/router-plugin`, `@cloudflare/vite-plugin`, `@lovable.dev/vite-tanstack-config`.
-   - Manter todas as libs de UI (Radix, framer-motion, tailwind, lucide, etc.).
-   - Scripts: `build` continua `vite build`.
+## Arquivos alterados
 
-2. **`vite.config.ts`** — reescrever como Vite puro:
-   ```ts
-   import { defineConfig } from "vite";
-   import react from "@vitejs/plugin-react";
-   import tailwindcss from "@tailwindcss/vite";
-   import tsconfigPaths from "vite-tsconfig-paths";
+- `src/styles.css`
+- `src/components/Header.tsx`
 
-   export default defineConfig({
-     plugins: [react(), tailwindcss(), tsconfigPaths()],
-     base: "./",          // caminhos relativos → funciona em subpasta da HostGator
-     build: { outDir: "dist", assetsDir: "assets" },
-   });
-   ```
-   `base: "./"` garante que o `index.html` referencie `./assets/...` (funciona tanto na raiz quanto em subdiretório).
+## Garantias visuais
 
-3. **Criar `index.html`** na raiz (entry padrão do Vite SPA) com `<div id="root">`, fontes do Google e meta tags atualmente em `__root.tsx`.
-
-4. **Criar `src/main.tsx`** — entry SPA:
-   ```tsx
-   import { createRoot } from "react-dom/client";
-   import App from "./App";
-   import "./styles.css";
-   createRoot(document.getElementById("root")!).render(<App />);
-   ```
-
-5. **Criar `src/App.tsx`** — copiar o JSX do `Index` atual (`src/routes/index.tsx`), removendo `createFileRoute`. Componentes filhos (`Header`, `Hero`, `Services`, etc.) ficam idênticos, sem mudanças.
-
-6. **Remover** (não são mais usados):
-   - `src/router.tsx`
-   - `src/routes/__root.tsx`
-   - `src/routes/index.tsx`
-   - `src/routeTree.gen.ts`
-   - `wrangler.jsonc`
-
-7. **`tsconfig.json`** — remover `"vite.config.ts"` do include se necessário; nada mais.
-
-## Verificação visual
-
-Os componentes em `src/components/*` (Hero, Header, Footer, Services, About, FAQ, etc.), `src/styles.css`, e todos os assets (`src/assets/*.webp`) **não serão tocados**. A árvore de renderização final é idêntica — só muda o entry point e o bundler.
-
-## Resposta final ao usuário (após implementar)
-
-1. **Arquivos alterados/criados:** `package.json`, `vite.config.ts`, `tsconfig.json`, `index.html` (novo), `src/main.tsx` (novo), `src/App.tsx` (novo). **Removidos:** `src/router.tsx`, `src/routes/`, `src/routeTree.gen.ts`, `wrangler.jsonc`.
-2. **Comando:** `npm install && npm run build`
-3. **Pasta para enviar à HostGator:** todo o conteúdo de `dist/` para `public_html/` (ou subpasta) via FTP/Gerenciador de Arquivos.
-4. **Confirmação:** nenhuma alteração visual — todos os componentes, estilos, imagens, animações, textos e ordem das seções permanecem idênticos.
-
-## Observação técnica sobre rotas
-
-Como a landing tem rota única (`/`), não há necessidade de `.htaccess` para fallback SPA. Se no futuro forem adicionadas rotas internas, será preciso um `.htaccess` com rewrite para `index.html`.
+- Nenhuma cor, fonte, imagem, texto ou ordem de seção alterada.
+- Apenas ajustes de propriedades CSS de overflow/largura para garantir responsividade do header.
